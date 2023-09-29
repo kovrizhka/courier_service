@@ -2,31 +2,32 @@ package com.kovrizhkin.courier.entity;
 
 
 import com.kovrizhkin.courier.CourierMessage;
+import com.kovrizhkin.courier.UniqueIdGeneratorForTask;
 
 import java.time.Instant;
 
 
 public class CallCenterTask {
 
-    CallCenterTaskBoard taskBoard = new CallCenterTaskBoard();
+    Order order;
 
     private int taskId;
-
-    private int orderNumber;
 
     private Instant taskDate;
 
     private CourierMessage courierMessage;
 
-    private boolean taskIsDone;
+    private boolean taskIsDoneStatus;
 
 
-    public CallCenterTask(int orderNumber, CourierMessage courierMessage) {
-        this.taskId = taskBoard.getTaskBoard().size();
-        this.orderNumber = orderNumber;
+
+
+    public CallCenterTask(Order order, CourierMessage courierMessage) {
+        this.taskId = UniqueIdGeneratorForTask.getNextId();
+        this.order = order;
         this.taskDate = Instant.now();
         this.courierMessage = courierMessage;
-        this.taskIsDone = false;
+        this.taskIsDoneStatus = false;
     }
 
     //GETTERS
@@ -34,7 +35,7 @@ public class CallCenterTask {
         return taskId;
     }
     public int getOrderNumber() {
-        return orderNumber;
+        return order.getOrderNumber();
     }
 
     public Instant getTaskDate() {
@@ -42,7 +43,7 @@ public class CallCenterTask {
     }
 
     public boolean isTaskIsDone() {
-        return taskIsDone;
+        return taskIsDoneStatus;
     }
 
 
@@ -51,11 +52,7 @@ public class CallCenterTask {
         this.taskId = taskId;
     }
 
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public void setTaskIsDone(boolean taskIsDone) {
-        this.taskIsDone = taskIsDone;
+    public void setTaskIsDoneStatus(boolean taskIsDone) {
+        this.taskIsDoneStatus = taskIsDone;
     }
 }
