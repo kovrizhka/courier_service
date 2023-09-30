@@ -1,58 +1,81 @@
 package com.kovrizhkin.courier.entity;
 
 
-import com.kovrizhkin.courier.CourierMessage;
 import com.kovrizhkin.courier.UniqueIdGeneratorForTask;
+import com.kovrizhkin.courier.entity.type.TaskStatus;
 
 import java.time.Instant;
 
 
 public class CallCenterTask {
 
-    Order order;
+
+    private int orderNumber;
 
     private int taskId;
 
-    private Instant taskDate;
+    private final Instant taskDate;
 
-    private CourierMessage courierMessage;
+    private TaskStatus taskStatus;
 
-    private boolean taskIsDoneStatus;
-
-
-
-
-    public CallCenterTask(Order order, CourierMessage courierMessage) {
-        this.taskId = UniqueIdGeneratorForTask.getNextId();
-        this.order = order;
-        this.taskDate = Instant.now();
-        this.courierMessage = courierMessage;
-        this.taskIsDoneStatus = false;
+    public String getComment() {
+        return comment;
     }
 
-    //GETTERS
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private String comment;
+
+
+
+    public CallCenterTask(int orderNumber) {
+        this.orderNumber = orderNumber;
+        this.taskId = UniqueIdGeneratorForTask.getNextId();
+        this.taskDate = Instant.now();
+        this.taskStatus = TaskStatus.NOT_DONE;
+        this.comment = "";
+    }
+
+    @Override
+    public String toString() {
+        return "ID задания: " + this.taskId + "\n"
+                +"Номер заказа: " + this.orderNumber + "\n"
+                + "Статус: " + this.taskStatus + "\n"
+                + "Комментарий: " + this.comment + "\n";
+    }
+
     public int getTaskId() {
         return taskId;
-    }
-    public int getOrderNumber() {
-        return order.getOrderNumber();
     }
 
     public Instant getTaskDate() {
         return taskDate;
     }
 
-    public boolean isTaskIsDone() {
-        return taskIsDoneStatus;
+    public TaskStatus isTaskIsDone() {
+        return taskStatus;
     }
 
 
-    //SETTERS
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public TaskStatus getTaskIsDoneStatus() {
+        return taskStatus;
+    }
+
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
 
-    public void setTaskIsDoneStatus(boolean taskIsDone) {
-        this.taskIsDoneStatus = taskIsDone;
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+}
+
+    public void setTaskStatus(TaskStatus taskIsDone) {
+        this.taskStatus = taskIsDone;
     }
 }

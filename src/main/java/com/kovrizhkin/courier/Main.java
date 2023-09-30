@@ -2,6 +2,12 @@ package com.kovrizhkin.courier;
 
 import com.kovrizhkin.courier.entity.CallCenterTask;
 import com.kovrizhkin.courier.entity.Order;
+import com.kovrizhkin.courier.entity.type.TaskStatus;
+import com.kovrizhkin.courier.repository.CallCenterTaskRepository;
+import com.kovrizhkin.courier.sevrice.CallCenterActionService;
+import com.kovrizhkin.courier.sevrice.CallCenterActionServiceImpl;
+import com.kovrizhkin.courier.sevrice.CourierActionService;
+import com.kovrizhkin.courier.sevrice.CourierActionServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +15,26 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        List<Order> orderList = new ArrayList<>();
+        CourierActionService courierActionServiceService = new CourierActionServiceImpl();
+        CallCenterActionService callCenterActionService = new CallCenterActionServiceImpl();
 
-        List<CallCenterTask> callCenterTasks = new ArrayList<>();
+
+        courierActionServiceService.toLate(new Order(12));
+        courierActionServiceService.toLate(new Order(15));
+        courierActionServiceService.toLate(new Order(16));
+        courierActionServiceService.toLate(new Order(18));
+        courierActionServiceService.toLate(new Order(69));
+
+        System.out.println(callCenterActionService.getTasksToCall());
+
+        callCenterActionService.saveCallResult(1, TaskStatus.DONE, "сделано");
+        callCenterActionService.saveCallResult(4, TaskStatus.DONE, "сделано");
+
+        System.out.println("__________________________");
+        System.out.println(callCenterActionService.getTasksToCall());
+
+
+
 
 
 
