@@ -15,8 +15,8 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        CourierActionService courierActionServiceService = new CourierActionServiceImpl();
-        CallCenterActionService callCenterActionService = new CallCenterActionServiceImpl();
+        CourierActionServiceImpl courierActionServiceService = new CourierActionServiceImpl();
+        CallCenterActionServiceImpl callCenterActionService = new CallCenterActionServiceImpl();
 
 
         courierActionServiceService.toLate(new Order(12));
@@ -27,11 +27,16 @@ public class Main {
 
         System.out.println(callCenterActionService.getTasksToCall());
 
-        callCenterActionService.saveCallResult(1, TaskStatus.DONE, "сделано");
-        callCenterActionService.saveCallResult(4, TaskStatus.DONE, "сделано");
+
+        callCenterActionService.saveCallResult(1, TaskStatus.DONE, "Клиент оповещен");
+        callCenterActionService.saveCallResult(4, TaskStatus.DONE, "Клиент оповещен");
 
         System.out.println("__________________________");
         System.out.println(callCenterActionService.getTasksToCall());
+        System.out.println("________SORTING___________");
+        System.out.println(callCenterActionService.getTasksToCall("2023-04-23", "2023-10-02"));
+
+
 
 
 
