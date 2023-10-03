@@ -34,7 +34,7 @@ public class Main {
         System.out.println("__________________________");
         System.out.println(callCenterActionService.getTasksToCall());
         System.out.println("________SORTING___________");
-        System.out.println(callCenterActionService.getTasksToCall("2023-04-23", "2023-10-02"));
+        System.out.println(callCenterActionService.getTasksToCall("2023-04-23", "2023-10-02", null, null));
 
 
 

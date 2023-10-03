@@ -22,8 +22,9 @@ public class CallCenterActionServiceImpl implements CallCenterActionService {
     }
 
     //сортировка по дате
-    public List<CallCenterTask> getTasksToCall(String from_yyyy_MM_dd, String to_yyyy_MM_dd) {
-
+    public List<CallCenterTask> getTasksToCall(String from_yyyy_MM_dd, String to_yyyy_MM_dd, Integer ordersNumber, TaskStatus ordersStatus) {
+        Integer orderNumber = ordersNumber;
+        TaskStatus taskStatus = ordersStatus;
         LocalDateTime fromLocalDateTime = LocalDateTime.parse(from_yyyy_MM_dd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDateTime toLocalDateTime = LocalDateTime.parse(to_yyyy_MM_dd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         Instant fromDate = fromLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
@@ -32,6 +33,18 @@ public class CallCenterActionServiceImpl implements CallCenterActionService {
         List<CallCenterTask> tasks = callCenterTaskRepository.getCallCenterTasks().stream()
                 .filter(task -> task.getTaskDate().isAfter(fromDate) && task.getTaskDate().isBefore(toDate)
                     || task.getTaskDate().equals(fromDate) || task.getTaskDate().equals(toDate))
+                .filter(task -> {
+                    if (ordersNumber == null) {
+                        return false;
+                    }
+                    return task.getOrderNumber() == ordersNumber;
+                })
+                .filter(task -> {
+                    if (taskStatus == null) {
+                        return false;
+                    }
+                    return task.isTaskIsDone() == taskStatus;
+                })
                 .collect(Collectors.toList());
     return tasks;
     }
