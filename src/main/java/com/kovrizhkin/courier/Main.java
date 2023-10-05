@@ -1,16 +1,10 @@
 package com.kovrizhkin.courier;
 
-import com.kovrizhkin.courier.entity.CallCenterTask;
 import com.kovrizhkin.courier.entity.Order;
 import com.kovrizhkin.courier.entity.type.TaskStatus;
-import com.kovrizhkin.courier.repository.CallCenterTaskRepository;
-import com.kovrizhkin.courier.sevrice.CallCenterActionService;
 import com.kovrizhkin.courier.sevrice.CallCenterActionServiceImpl;
-import com.kovrizhkin.courier.sevrice.CourierActionService;
 import com.kovrizhkin.courier.sevrice.CourierActionServiceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -34,7 +28,7 @@ public class Main {
         System.out.println("__________________________");
         System.out.println(callCenterActionService.getTasksToCall());
         System.out.println("________SORTING___________");
-        System.out.println(callCenterActionService.getTasksToCall("2023-04-23", "2023-10-02", null, null));
+
 
 
 

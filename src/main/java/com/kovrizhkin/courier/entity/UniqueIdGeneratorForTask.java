@@ -1,4 +1,4 @@
-package com.kovrizhkin.courier;
+package com.kovrizhkin.courier.entity;
 
 public class UniqueIdGeneratorForTask {
     private static int nextId = 1;

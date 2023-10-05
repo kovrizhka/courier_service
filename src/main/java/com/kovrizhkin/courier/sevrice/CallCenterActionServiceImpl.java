@@ -5,9 +5,6 @@ import com.kovrizhkin.courier.entity.type.TaskStatus;
 import com.kovrizhkin.courier.repository.CallCenterTaskRepository;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +19,7 @@ public class CallCenterActionServiceImpl implements CallCenterActionService {
     }
 
     //сортировка по дате
-    public List<CallCenterTask> getTasksToCall(String from_yyyy_MM_dd, String to_yyyy_MM_dd, Integer ordersNumber, TaskStatus ordersStatus) {
-        Integer orderNumber = ordersNumber;
-        TaskStatus taskStatus = ordersStatus;
-        LocalDateTime fromLocalDateTime = LocalDateTime.parse(from_yyyy_MM_dd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDateTime toLocalDateTime = LocalDateTime.parse(to_yyyy_MM_dd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        Instant fromDate = fromLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
-        Instant toDate = toLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
+    public List<CallCenterTask> getTasksToCall(Instant fromDate, Instant toDate, Integer ordersNumber, TaskStatus taskStatus) {
 
         List<CallCenterTask> tasks = callCenterTaskRepository.getCallCenterTasks().stream()
                 .filter(task -> task.getTaskDate().isAfter(fromDate) && task.getTaskDate().isBefore(toDate)
@@ -48,6 +39,8 @@ public class CallCenterActionServiceImpl implements CallCenterActionService {
                 .collect(Collectors.toList());
     return tasks;
     }
+
+
 
     @Override
     public void saveCallResult(int taskId, TaskStatus taskStatus, String taskComment) {

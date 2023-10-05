@@ -1,7 +1,6 @@
 package com.kovrizhkin.courier.entity;
 
 
-import com.kovrizhkin.courier.UniqueIdGeneratorForTask;
 import com.kovrizhkin.courier.entity.type.TaskStatus;
 
 import java.time.Instant;
